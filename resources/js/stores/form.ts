@@ -24,6 +24,7 @@ interface FormStore {
     mapping: Record<FormBlockType, FormBlockInteractionType> | null;
     isCssTransitionEnabled: boolean;
     isBlockMenuEnabled: boolean;
+    showLogicInStoryboard: boolean;
 }
 
 export const useForm = defineStore("form", {
@@ -34,6 +35,7 @@ export const useForm = defineStore("form", {
             blocks: null,
             isCssTransitionEnabled: true,
             isBlockMenuEnabled: true,
+            showLogicInStoryboard: true,
         };
     },
 
@@ -81,6 +83,28 @@ export const useForm = defineStore("form", {
         showBlockMenus: (state): boolean => {
             return state.isBlockMenuEnabled;
         },
+
+        blocksTree: (state): TreeNode[] => {
+            const tree: TreeNode[] = [];
+            const map: Record<string, TreeNode> = {};
+
+            state.blocks?.forEach((block) => {
+                map[block.uuid] = { block, children: [] };
+            });
+
+            state.blocks?.forEach((block) => {
+                if (block.parent_block) {
+                    const parent = map[block.parent_block];
+                    if (parent) {
+                        parent.children.push(map[block.uuid]);
+                    }
+                } else {
+                    tree.push(map[block.uuid]);
+                }
+            });
+
+            return tree;
+        },
     },
 
     actions: {
@@ -99,6 +123,10 @@ export const useForm = defineStore("form", {
 
         disableBlockMenu() {
             this.isBlockMenuEnabled = false;
+        },
+
+        toggleLogicInStoryboard() {
+            this.showLogicInStoryboard = !this.showLogicInStoryboard;
         },
 
         async refreshForm(includeSubmissions = false) {
@@ -281,7 +309,11 @@ export const useForm = defineStore("form", {
             }
         },
 
-        async disableFormBlock(block: FormBlockModel, newValue: boolean) {
+        async updateFormBlockProperty(
+            block: FormBlockModel,
+            property: string,
+            newValue: boolean,
+        ) {
             if (!this.form) {
                 return;
             }
@@ -289,12 +321,12 @@ export const useForm = defineStore("form", {
             try {
                 const response = await callUpdateFormBlock({
                     ...block,
-                    is_disabled: newValue,
+                    [property]: newValue,
                 });
 
-                const index = this.blocks?.findIndex((item) => {
-                    return item.id === block.id;
-                });
+                const index = this.blocks?.findIndex(
+                    (item) => item.id === block.id,
+                );
 
                 if (
                     response.status === 200 &&

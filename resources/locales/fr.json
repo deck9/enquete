@@ -1,42 +1,43 @@
 {
-    "admin": {
-        "blocks": "pas de blocs | 1 bloc | {n} blocs"
-    },
-    "required": "obligatoire",
-    "hints": {
-        "edit": "Appuyez sur {0} pour modifier",
-        "confirm": "{0} pour confirmer"
-    },
-    "validation": {
-        "consent_required": "Pour continuer, vous devez accepter les termes et conditions.",
-        "field_required": "Ce champ est obligatoire.",
-        "valid_email": "Veuillez saisir un email valide.",
-        "valid_link": "Veuillez entrer un lien valide.",
-        "valid_number": "S'il vous plait, entrez un nombre valide.",
-        "valid_phone": "S'il vous plaît entrer un numéro de téléphone valide.",
-        "option_required": "Veuillez sélectionner une option.",
-        "error": "Une erreur s'est produite lors de la validation de votre saisie",
-        "max_characters": "Vous avez dépassé le nombre maximum de caractères autorisés.",
-        "no_file_interaction": "Il n'y a aucune configuration valide pour accepter les fichiers",
-        "too_many_files": "Vous avez téléchargé trop de fichiers. Vous pouvez télécharger jusqu'à {maxFiles} fichiers.",
-        "file_size": "Le fichier '{fileName}' dépasse la taille maximale de {maxFileSize} Mo.",
-        "rating_required": "Veuillez choisir une note"
-    },
-    "accept_submit": "Accepter et soumettre",
-    "accept": "Accepter",
-    "close": "Fermer",
-    "type": "Tapez votre réponse",
-    "submit": "Soumettre",
-    "privacy_policy": "Politique de confidentialité",
-    "other": "Autre",
-    "next": "Suivant",
-    "legal_notice": "Mention légale",
-    "page_previous": "Aller à la page précédente",
-    "page_next": "Aller à la page suivante",
-    "form_submitted": "Formulaire soumis",
-    "find_us": "Retrouvez-nous ici",
-    "enter": "Entrer",
-    "continue": "Continuer",
-    "files_choose": "Choisir des fichiers",
-    "files_drop": "ou déposez ici"
+  "admin": {
+    "blocks": "pas de blocs | 1 bloc | {n} blocs",
+    "logicTitle": "pas de règles | 1 règle de blocage | {n} règles de blocage"
+  },
+  "required": "obligatoire",
+  "hints": {
+    "edit": "Appuyez sur {0} pour modifier",
+    "confirm": "{0} pour confirmer"
+  },
+  "validation": {
+    "consent_required": "Pour continuer, vous devez accepter les termes et conditions.",
+    "field_required": "Ce champ est obligatoire.",
+    "valid_email": "Veuillez saisir un email valide.",
+    "valid_link": "Veuillez entrer un lien valide.",
+    "valid_number": "S'il vous plait, entrez un nombre valide.",
+    "valid_phone": "S'il vous plaît entrer un numéro de téléphone valide.",
+    "option_required": "Veuillez sélectionner une option.",
+    "error": "Une erreur s'est produite lors de la validation de votre saisie",
+    "max_characters": "Vous avez dépassé le nombre maximum de caractères autorisés.",
+    "no_file_interaction": "Il n'y a aucune configuration valide pour accepter les fichiers",
+    "too_many_files": "Vous avez téléchargé trop de fichiers. Vous pouvez télécharger jusqu'à {maxFiles} fichiers.",
+    "file_size": "Le fichier '{fileName}' dépasse la taille maximale de {maxFileSize} Mo.",
+    "rating_required": "Veuillez choisir une note"
+  },
+  "accept_submit": "Accepter et soumettre",
+  "accept": "Accepter",
+  "close": "Fermer",
+  "type": "Tapez votre réponse",
+  "submit": "Soumettre",
+  "privacy_policy": "Politique de confidentialité",
+  "other": "Autre",
+  "next": "Suivant",
+  "legal_notice": "Mention légale",
+  "page_previous": "Aller à la page précédente",
+  "page_next": "Aller à la page suivante",
+  "form_submitted": "Formulaire soumis",
+  "find_us": "Retrouvez-nous ici",
+  "enter": "Entrer",
+  "continue": "Continuer",
+  "files_choose": "Choisir des fichiers",
+  "files_drop": "ou déposez ici"
 }

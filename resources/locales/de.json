@@ -1,42 +1,43 @@
 {
-    "required": "Pflichtfeld",
-    "hints": {
-        "edit": "Drücke {0} um zu bearbeiten",
-        "confirm": "{0} um zu bestätigen"
-    },
-    "validation": {
-        "consent_required": "Um fortzufahren, musst Du den Bedingungen zustimmen.",
-        "field_required": "Dieses Feld ist erforderlich.",
-        "valid_email": "Bitte gib eine gültige E-Mail-Adresse ein.",
-        "valid_link": "Bitte gib einen gültigen Link ein.",
-        "valid_number": "Bitte gib eine gültige Zahl ein.",
-        "valid_phone": "Bitte gib eine gültige Telefonnummer ein.",
-        "option_required": "Bitte wähle eine Option aus.",
-        "error": "Beim Validieren deiner Eingabe ist etwas schief gelaufen.",
-        "max_characters": "Du hast die maximale Anzahl von Zeichen überschritten.",
-        "no_file_interaction": "Es gibt keine gültige Konfiguration, um Dateien zu akzeptieren.",
-        "too_many_files": "Du hast zu viele Dateien hochgeladen. Du kannst bis zu {maxFiles} Dateien hochladen.",
-        "file_size": "Die Datei '{fileName}' überschreitet die maximale Größe von {maxFileSize} MB.",
-        "rating_required": "Bitte wählen Sie eine Bewertung aus."
-    },
-    "admin": {
-        "blocks": "keine Blöcke | 1 Block | {n} Blöcke"
-    },
-    "accept_submit": "Akzeptieren & Absenden",
-    "accept": "Akzeptieren",
-    "close": "Schliessen",
-    "type": "Gib deine Antwort ein",
-    "submit": "Absenden",
-    "privacy_policy": "Datenschutzerklärung",
-    "other": "Andere",
-    "next": "Weiter",
-    "legal_notice": "Impressum",
-    "page_previous": "Zur vorherigen Seite",
-    "page_next": "Zur nächsten Seite",
-    "form_submitted": "Formular abgeschickt",
-    "find_us": "Finde uns hier",
-    "enter": "Enter",
-    "continue": "Weiter",
-    "files_choose": "Wählen Sie Dateien aus",
-    "files_drop": "oder hier ablegen"
+  "required": "Pflichtfeld",
+  "hints": {
+    "edit": "Drücke {0} um zu bearbeiten",
+    "confirm": "{0} um zu bestätigen"
+  },
+  "validation": {
+    "consent_required": "Um fortzufahren, musst Du den Bedingungen zustimmen.",
+    "field_required": "Dieses Feld ist erforderlich.",
+    "valid_email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "valid_link": "Bitte gib einen gültigen Link ein.",
+    "valid_number": "Bitte gib eine gültige Zahl ein.",
+    "valid_phone": "Bitte gib eine gültige Telefonnummer ein.",
+    "option_required": "Bitte wähle eine Option aus.",
+    "error": "Beim Validieren deiner Eingabe ist etwas schief gelaufen.",
+    "max_characters": "Du hast die maximale Anzahl von Zeichen überschritten.",
+    "no_file_interaction": "Es gibt keine gültige Konfiguration, um Dateien zu akzeptieren.",
+    "too_many_files": "Du hast zu viele Dateien hochgeladen. Du kannst bis zu {maxFiles} Dateien hochladen.",
+    "file_size": "Die Datei '{fileName}' überschreitet die maximale Größe von {maxFileSize} MB.",
+    "rating_required": "Bitte wählen Sie eine Bewertung aus."
+  },
+  "admin": {
+    "blocks": "keine Blöcke | 1 Block | {n} Blöcke",
+    "logicTitle": "keine Regeln | 1 Regel | {n} Regeln"
+  },
+  "accept_submit": "Akzeptieren & Absenden",
+  "accept": "Akzeptieren",
+  "close": "Schliessen",
+  "type": "Gib deine Antwort ein",
+  "submit": "Absenden",
+  "privacy_policy": "Datenschutzerklärung",
+  "other": "Andere",
+  "next": "Weiter",
+  "legal_notice": "Impressum",
+  "page_previous": "Zur vorherigen Seite",
+  "page_next": "Zur nächsten Seite",
+  "form_submitted": "Formular abgeschickt",
+  "find_us": "Finde uns hier",
+  "enter": "Enter",
+  "continue": "Weiter",
+  "files_choose": "Wählen Sie Dateien aus",
+  "files_drop": "oder hier ablegen"
 }

@@ -1,31 +1,32 @@
 <?php
 
-use App\Http\Controllers\Api\CreateFormSessionController;
-use App\Http\Controllers\Api\DeleteFormSubmissionController;
-use App\Http\Controllers\Api\DuplicateFormController;
-use App\Http\Controllers\Api\FormBlockController;
-use App\Http\Controllers\Api\FormBlockInteractionController;
-use App\Http\Controllers\Api\FormBlockInteractionSequenceController;
-use App\Http\Controllers\Api\FormBlockMappingController;
-use App\Http\Controllers\Api\FormBlockSequenceController;
-use App\Http\Controllers\Api\FormController;
-use App\Http\Controllers\Api\FormImagesController;
-use App\Http\Controllers\Api\FormSubmissionsController;
-use App\Http\Controllers\Api\FormSubmitController;
-use App\Http\Controllers\Api\FormTemplateExportController;
-use App\Http\Controllers\Api\FormTemplateImportController;
-use App\Http\Controllers\Api\FormUploadController;
-use App\Http\Controllers\Api\FormWebhookController;
-use App\Http\Controllers\Api\GetFormStoryboardController;
-use App\Http\Controllers\Api\PublishFormController;
-use App\Http\Controllers\Api\PurgeFormSubmissionsController;
-use App\Http\Controllers\Api\ShowFormController;
-use App\Http\Controllers\Api\TrashedFormController;
-use App\Http\Controllers\Api\UnpublishFormController;
-use App\Http\Controllers\Api\ZiggyController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FormController;
+use App\Http\Controllers\Api\ZiggyController;
+use App\Http\Controllers\Api\ShowFormController;
+use App\Http\Controllers\Api\FormBlockController;
+use App\Http\Controllers\Api\FormImagesController;
+use App\Http\Controllers\Api\FormSubmitController;
+use App\Http\Controllers\Api\FormUploadController;
+use App\Http\Controllers\Api\FormWebhookController;
+use App\Http\Controllers\Api\PublishFormController;
+use App\Http\Controllers\Api\TrashedFormController;
+use App\Http\Controllers\Api\DuplicateFormController;
+use App\Http\Controllers\Api\UnpublishFormController;
+use App\Http\Controllers\Api\FormBlockLogicController;
+use App\Http\Controllers\Api\FormSubmissionsController;
+use App\Http\Controllers\Api\FormBlockMappingController;
+use App\Http\Controllers\Api\CreateFormSessionController;
+use App\Http\Controllers\Api\FormBlockSequenceController;
+use App\Http\Controllers\Api\GetFormStoryboardController;
+use App\Http\Controllers\Api\FormTemplateExportController;
+use App\Http\Controllers\Api\FormTemplateImportController;
+use App\Http\Controllers\Api\DeleteFormSubmissionController;
+use App\Http\Controllers\Api\FormBlockInteractionController;
+use App\Http\Controllers\Api\PurgeFormSubmissionsController;
+use App\Http\Controllers\Api\FormBlockInteractionSequenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,11 @@ $router->middleware(['auth:sanctum'])->group(function (Router $router) {
     $router->post('{block}/interactions', [FormBlockInteractionController::class, 'create'])->name('api.interactions.create');
     $router->post('interactions/{interaction}', [FormBlockInteractionController::class, 'update'])->name('api.interactions.update');
     $router->delete('interactions/{interaction}', [FormBlockInteractionController::class, 'delete'])->name('api.interactions.delete');
+
+    // Logic API Routes
+    $router->post('{block}/logic', [FormBlockLogicController::class, 'create'])->name('api.logics.create');
+    $router->post('logic/{logic}', [FormBlockLogicController::class, 'update'])->name('api.logics.update');
+    $router->delete('logic/{logic}', [FormBlockLogicController::class, 'delete'])->name('api.logics.delete');
 
     // Sequence Routes
     $router->post('{form}/blocks/sequence', FormBlockSequenceController::class)->name('api.blocks.sequence');

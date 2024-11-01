@@ -1,42 +1,43 @@
 {
-    "admin": {
-        "blocks": "ingen blokker | 1 blokk | {n} blokker"
-    },
-    "required": "påkrevd",
-    "hints": {
-        "edit": "Trykk {0} for å redigere",
-        "confirm": "{0} for å bekrefte"
-    },
-    "validation": {
-        "consent_required": "For å fortsette, må du godta vilkårene.",
-        "field_required": "Dette feltet er påkrevd.",
-        "valid_email": "Vennligst skriv inn en gyldig e-postadresse.",
-        "valid_link": "Vennligst skriv inn en gyldig lenke.",
-        "valid_number": "Vennligst skriv inn et gyldig nummer.",
-        "valid_phone": "Vennligst skriv inn et gyldig telefonnummer.",
-        "option_required": "Vennligst velg et alternativ.",
-        "error": "Noe gikk galt under validering av inndataene dine",
-        "max_characters": "Du har overskredet det maksimale antallet tegn som er tillatt.",
-        "no_file_interaction": "Det er ingen gyldig konfigurasjon for å akseptere filer",
-        "too_many_files": "Du har lastet opp for mange filer. Du kan laste opp opptil {maxFiles} filer.",
-        "file_size": "Filen '{fileName}' overskrider maksimal størrelse på {maxFileSize} MB.",
-        "rating_required": "Vennligst velg en vurdering"
-    },
-    "accept_submit": "Godkjenn og send inn",
-    "accept": "Godkjenn",
-    "close": "Lukk",
-    "type": "Skriv svaret ditt",
-    "submit": "Send inn",
-    "privacy_policy": "Personvern",
-    "other": "Annet",
-    "next": "Neste",
-    "legal_notice": "Juridisk merknad",
-    "page_previous": "Gå til forrige side",
-    "page_next": "Gå til neste side",
-    "form_submitted": "Skjema sendt inn",
-    "find_us": "Finn oss her",
-    "enter": "Legg inn",
-    "continue": "Fortsett",
-    "files_choose": "Velg filer",
-    "files_drop": "eller slipp her"
+  "admin": {
+    "blocks": "ingen blokker | 1 blokk | {n} blokker",
+    "logicTitle": "ingen regler | 1 blokkregel | {n} blokkeringsregler"
+  },
+  "required": "påkrevd",
+  "hints": {
+    "edit": "Trykk {0} for å redigere",
+    "confirm": "{0} for å bekrefte"
+  },
+  "validation": {
+    "consent_required": "For å fortsette, må du godta vilkårene.",
+    "field_required": "Dette feltet er påkrevd.",
+    "valid_email": "Vennligst skriv inn en gyldig e-postadresse.",
+    "valid_link": "Vennligst skriv inn en gyldig lenke.",
+    "valid_number": "Vennligst skriv inn et gyldig nummer.",
+    "valid_phone": "Vennligst skriv inn et gyldig telefonnummer.",
+    "option_required": "Vennligst velg et alternativ.",
+    "error": "Noe gikk galt under validering av inndataene dine",
+    "max_characters": "Du har overskredet det maksimale antallet tegn som er tillatt.",
+    "no_file_interaction": "Det er ingen gyldig konfigurasjon for å akseptere filer",
+    "too_many_files": "Du har lastet opp for mange filer. Du kan laste opp opptil {maxFiles} filer.",
+    "file_size": "Filen '{fileName}' overskrider maksimal størrelse på {maxFileSize} MB.",
+    "rating_required": "Vennligst velg en vurdering"
+  },
+  "accept_submit": "Godkjenn og send inn",
+  "accept": "Godkjenn",
+  "close": "Lukk",
+  "type": "Skriv svaret ditt",
+  "submit": "Send inn",
+  "privacy_policy": "Personvern",
+  "other": "Annet",
+  "next": "Neste",
+  "legal_notice": "Juridisk merknad",
+  "page_previous": "Gå til forrige side",
+  "page_next": "Gå til neste side",
+  "form_submitted": "Skjema sendt inn",
+  "find_us": "Finn oss her",
+  "enter": "Legg inn",
+  "continue": "Fortsett",
+  "files_choose": "Velg filer",
+  "files_drop": "eller slipp her"
 }

@@ -1,42 +1,43 @@
 {
-    "required": "Povinné",
-    "hints": {
-        "edit": "Stlač {0} pre úpravu",
-        "confirm": "{0} pre potvrdenie"
-    },
-    "validation": {
-        "consent_required": "Pre pokračovanie je potrebný súhlas.",
-        "field_required": "Toto pole je povinné.",
-        "valid_email": "Prosíme, zadajte správnu e-mailovú adresu.",
-        "valid_link": "Prosíme, zadajte sprvány link.",
-        "valid_number": "Prosíme, zadajte správne číslo.",
-        "valid_phone": "Prosíme, zadajte správne telefónne číslo.",
-        "option_required": "Prosíme, vyberte nejakú možnosť.",
-        "error": "Niečo sa nepodarilo pri overení Vašich údajov",
-        "max_characters": "Prekročili ste maximálny povolený počet znakov.",
-        "no_file_interaction": "Neexistuje platná konfigurácia na prijímanie súborov.",
-        "too_many_files": "Nahrali ste príliš veľa súborov. Môžete nahrať až {maxFiles} súborov.",
-        "file_size": "Súbor '{fileName}' prekračuje maximálnu veľkosť {maxFileSize} MB.",
-        "rating_required": "Prosím, vyberte si hodnotenie."
-    },
-    "admin": {
-        "blocks": "žiadne bloky | 1 blok | {n} blokov"
-    },
-    "accept_submit": "Akceptovať a odoslať",
-    "accept": "Akceptovať",
-    "close": "Zavrieť",
-    "type": "Zadajte Vašu odpoveď",
-    "submit": "Odoslať",
-    "privacy_policy": "Ochrana osobných údajov",
-    "other": "Iné",
-    "next": "Ďalej",
-    "legal_notice": "Pravidlá používania",
-    "page_previous": "Na predošlú stránku",
-    "page_next": "Na ďalšiu stránku",
-    "form_submitted": "Formulár odoslaný",
-    "find_us": "Nájdete nás tu",
-    "enter": "Enter",
-    "continue": "Pokračovať",
-    "files_choose": "Vyberte súbory",
-    "files_drop": "alebo sem spustiť"
+  "required": "Povinné",
+  "hints": {
+    "edit": "Stlač {0} pre úpravu",
+    "confirm": "{0} pre potvrdenie"
+  },
+  "validation": {
+    "consent_required": "Pre pokračovanie je potrebný súhlas.",
+    "field_required": "Toto pole je povinné.",
+    "valid_email": "Prosíme, zadajte správnu e-mailovú adresu.",
+    "valid_link": "Prosíme, zadajte sprvány link.",
+    "valid_number": "Prosíme, zadajte správne číslo.",
+    "valid_phone": "Prosíme, zadajte správne telefónne číslo.",
+    "option_required": "Prosíme, vyberte nejakú možnosť.",
+    "error": "Niečo sa nepodarilo pri overení Vašich údajov",
+    "max_characters": "Prekročili ste maximálny povolený počet znakov.",
+    "no_file_interaction": "Neexistuje platná konfigurácia na prijímanie súborov.",
+    "too_many_files": "Nahrali ste príliš veľa súborov. Môžete nahrať až {maxFiles} súborov.",
+    "file_size": "Súbor '{fileName}' prekračuje maximálnu veľkosť {maxFileSize} MB.",
+    "rating_required": "Prosím, vyberte si hodnotenie."
+  },
+  "admin": {
+    "blocks": "žiadne bloky | 1 blok | {n} blokov",
+    "logicTitle": "žiadne pravidlá | pravidlo 1 bloku | {n} pravidiel blokovania"
+  },
+  "accept_submit": "Akceptovať a odoslať",
+  "accept": "Akceptovať",
+  "close": "Zavrieť",
+  "type": "Zadajte Vašu odpoveď",
+  "submit": "Odoslať",
+  "privacy_policy": "Ochrana osobných údajov",
+  "other": "Iné",
+  "next": "Ďalej",
+  "legal_notice": "Pravidlá používania",
+  "page_previous": "Na predošlú stránku",
+  "page_next": "Na ďalšiu stránku",
+  "form_submitted": "Formulár odoslaný",
+  "find_us": "Nájdete nás tu",
+  "enter": "Enter",
+  "continue": "Pokračovať",
+  "files_choose": "Vyberte súbory",
+  "files_drop": "alebo sem spustiť"
 }

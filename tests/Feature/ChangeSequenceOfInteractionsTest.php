@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('each_block_has_a_sequence', function () {
+test('each block interaction has a sequence', function () {
     $block = FormBlock::factory()->create();
     $interactions = FormBlockInteraction::factory()->count(3)->create([
         'form_block_id' => $block->id,
@@ -17,7 +17,7 @@ test('each_block_has_a_sequence', function () {
     $this->assertEquals(2, $interactions[2]->sequence);
 });
 
-test('can_update_the_block_interactions_sequence', function () {
+test('can update the block interactions sequence', function () {
     $block = FormBlock::factory()->create();
     $interactions = FormBlockInteraction::factory()->count(3)->create([
         'form_block_id' => $block->id,
@@ -41,7 +41,7 @@ test('can_update_the_block_interactions_sequence', function () {
     $this->assertEquals(2, $interactions[1]->sequence);
 });
 
-test('deleting_an_interaction_updates_sequence_on_remaining_interactions', function () {
+test('deleting an interaction updates sequence on remaining interactions', function () {
     $this->withoutExceptionHandling();
 
     $block = FormBlock::factory()->create();

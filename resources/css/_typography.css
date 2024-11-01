@@ -65,3 +65,8 @@
         @apply max-w-full my-4;
     }
 }
+
+
+pre {
+    @apply bg-grey-900 text-xxs p-4 rounded text-white leading-none my-2;
+}

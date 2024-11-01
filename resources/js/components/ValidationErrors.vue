@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="font-medium text-red-400">Whoops! Something went wrong.</div>
+    <div class="font-medium text-red-400">{{ title }}</div>
     <ul class="mt-1 list-inside list-disc text-sm text-red-400">
       <li v-for="(error, index) in errors" :key="index">
         {{ error }}
@@ -10,7 +10,13 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  errors: string[];
-}>();
+withDefaults(
+  defineProps<{
+    title?: string;
+    errors: string[];
+  }>(),
+  {
+    title: "Whoops! Something went wrong.",
+  },
+);
 </script>

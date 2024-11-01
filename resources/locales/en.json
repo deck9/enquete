@@ -1,6 +1,7 @@
 {
     "admin": {
-        "blocks": "no blocks | 1 block | {n} blocks"
+        "blocks": "no blocks | 1 block | {n} blocks",
+        "logicTitle": "no rules | 1 block rule | {n} block rules"
     },
     "required": "required",
     "hints": {

@@ -49,21 +49,22 @@
       class="flex items-center justify-center gap-x-2 border-t border-grey-200 bg-white px-4 py-3"
     >
       <D9Button
-        label="Create Block"
+        label="Block"
         color="dark"
         icon="plus"
         icon-position="right"
         @click="store.createFormBlock()"
       />
       <D9Button
-        label="Create Group"
+        label="Group"
         color="light"
-        icon="file-lines"
+        icon="layer-group"
         icon-position="right"
         @click="store.createFormBlock(null, 'group')"
       />
     </div>
   </div>
+  <BlockLogicEditor />
 </template>
 
 <script setup lang="ts">
@@ -75,6 +76,7 @@ import BlockContainer from "./BlockContainer.vue";
 import EmptyState from "@/components/EmptyState.vue";
 import ScrollShadow from "@/components/ScrollShadow.vue";
 import _throttle from "lodash/throttle";
+import BlockLogicEditor from "@/components/Factory/Sidebar/BlockLogicEditor.vue";
 
 const isLoaded = ref(false);
 const store = useForm();

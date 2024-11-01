@@ -67,3 +67,11 @@ export function replaceRouteQuery(query: Record<string, any>): void {
 
     window.history.replaceState(historyState, "", url.toString());
 }
+
+export function getTextFromHtml(html: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const text = div.textContent || div.innerText || "";
+
+    return text;
+}

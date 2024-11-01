@@ -1,10 +1,10 @@
 <template>
   <div class="group absolute inset-x-0 bottom-0 top-0 flex justify-center">
     <button
-      class="absolute inset-x-0 bottom-[4px] rounded bg-blue-100 py-px leading-none opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+      class="absolute inset-x-0 bottom-[4px] rounded bg-grey-200 h-4 leading-none opacity-0 transition-opacity duration-150 group-hover:opacity-100"
       @click="store.createFormBlock(block)"
     >
-      <D9Icon class="text-blue-900" name="plus-circle" />
+      <D9Icon class="text-grey-900" name="plus-circle" size="xs" />
     </button>
   </div>
 </template>

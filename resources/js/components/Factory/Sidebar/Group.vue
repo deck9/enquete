@@ -1,30 +1,27 @@
 <template>
   <div class="relative pb-6 text-sm">
     <InsertAfterButton v-bind="{ block }" />
-    <button
-      class="relative block w-full rounded-md border-dashed px-4 py-3 text-left"
+    <div
+      class="relative block w-full rounded-md border-dotted px-4 py-3 text-left"
       :class="[cardStyle, { 'opacity-50': block.is_disabled }]"
       @click.stop="workbench.putOnWorkbench(block)"
     >
-      <h1
-        class="-ml-2 mr-4 rounded px-2 py-1 font-bold text-grey-400 hover:bg-grey-100"
+      <button
+        class="rounded pl-2 pr-5 py-1 font-bold text-grey-400 hover:bg-grey-100 block text-left"
         :class="[{ 'mb-3': !isCollapsed }]"
+        @click.prevent="toggleGroup"
       >
-        <button
-          class="mr-1 cursor-pointer hover:text-blue-400"
-          @click.prevent="toggleGroup"
-        >
-          <D9Icon
-            class="transition-transform duration-150"
-            :class="[{ '-rotate-90': isCollapsed }]"
-            name="chevron-down"
-          />
-        </button>
+        <D9Icon
+          class="transition-transform duration-150 mr-2"
+          :class="[{ '-rotate-90': isCollapsed }]"
+          name="chevron-down"
+        />
+        <D9Icon name="layer-group" size="sm" />
         {{ block.title ?? "Group" }}
         <span class="font-light italic" v-show="isCollapsed"
           >({{ t("admin.blocks", groupCount) }})</span
         >
-      </h1>
+      </button>
       <div
         v-if="showBlockMenus"
         class="absolute right-3 top-2 hover:opacity-100"
@@ -46,12 +43,6 @@
           <D9MenuLink
             as="button"
             class="block w-full text-left"
-            :label="block.is_disabled ? 'Enable Block' : 'Disable Block'"
-            @click="disableBlock"
-          />
-          <D9MenuLink
-            as="button"
-            class="block w-full text-left"
             label="Delete"
             @click.stop="deleteBlock"
           />
@@ -63,30 +54,33 @@
         class="transition duration-200"
       />
 
-      <div class="flex space-x-1">
-        <div class="mt-2" v-if="block.is_disabled">
-          <Label color="grey">disabled</Label>
-        </div>
-      </div>
-    </button>
+      <!-- Block Status -->
+      <BlockFooter class="mt-2" :block="block" />
+
+      <!-- Block Logic -->
+      <BlockLogicVisualizer v-if="store.showLogicInStoryboard" />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import BlockContainer from "@/components/Factory/Sidebar/BlockContainer.vue";
 import InsertAfterButton from "./InsertAfterButton.vue";
-import Label from "@/components/Label.vue";
+import BlockFooter from "./BlockFooter.vue";
+import BlockLogicVisualizer from "./BlockLogicVisualizer.vue";
 import copy from "copy-text-to-clipboard";
 import { D9Menu, D9MenuLink, D9Icon } from "@deck9/ui";
 import { useActiveCard } from "@/utils/useActiveCard";
 import { useWorkbench, useForm } from "@/stores";
-import { computed, ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { storeToRefs } from "pinia";
 
 const props = defineProps<{
   block: FormBlockModel;
 }>();
+
+provide("block", props.block);
 
 const { t } = useI18n();
 
@@ -110,7 +104,7 @@ const groupCount = computed(() => {
 
 const deleteBlock = () => {
   let result = window.confirm(
-    "Do you really want to delete this group? All blocks inside this group will be deleted as well."
+    "Do you really want to delete this group? All blocks inside this group will be deleted as well.",
   );
 
   if (result) {
@@ -120,14 +114,6 @@ const deleteBlock = () => {
       workbench.clearWorkbench();
     }
   }
-};
-
-const disableBlock = () => {
-  if (!props.block.is_disabled) {
-    isCollapsed.value = true;
-  }
-
-  store.disableFormBlock(props.block, !props.block.is_disabled);
 };
 
 const copyId = () => {

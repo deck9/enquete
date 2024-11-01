@@ -6,6 +6,8 @@ import {
     callGetForm,
     callUploadFiles,
 } from "@/api/conversation";
+import { evaluateGotoLogic, isBlockVisible } from "./helpers/logic";
+import { createFlatQueue } from "./helpers/queue";
 import { Ref, ref } from "vue";
 
 type ConversationStore = {
@@ -13,7 +15,7 @@ type ConversationStore = {
     session?: FormSessionModel;
     storyboard: PublicFormBlockModel[] | null;
     queue: PublicFormBlockModel[] | null;
-    current: number;
+    current: PublicFormBlockModel["id"] | null;
     payload: FormSubmitPayload;
     isProcessing: boolean;
     isSubmitted: boolean;
@@ -28,7 +30,7 @@ export const useConversation = defineStore("form", {
             session: undefined,
             storyboard: null,
             queue: null,
-            current: 0,
+            current: null,
             payload: {},
             isProcessing: false,
             isSubmitted: false,
@@ -38,37 +40,62 @@ export const useConversation = defineStore("form", {
     },
 
     getters: {
-        isFirstBlock(state): boolean {
-            if (!state.queue) {
+        isFirstBlock(): boolean {
+            if (!this.processedQueue) {
                 return false;
             }
 
-            return state.current === 0;
+            return this.currentBlockIndex === 0;
         },
 
-        isLastBlock(state): boolean {
-            if (!state.queue) {
+        isLastBlock(): boolean {
+            if (!this.processedQueue) {
                 return false;
             }
 
-            return state.current + 1 >= state.queue.length;
+            return this.currentBlockIndex + 1 >= this.processedQueue.length;
         },
 
-        currentBlock: (state): PublicFormBlockModel | null => {
-            if (state.queue && state.queue.length >= state.current) {
-                return state.queue[state.current];
+        processedQueue(state): PublicFormBlockModel[] {
+            if (!state.queue) {
+                return [];
             }
 
-            return null;
+            return state.queue
+                .filter((block) => isBlockVisible(block, state.payload))
+                .filter((block) => block.type !== "group");
+        },
+
+        currentBlockIndex(state): number {
+            return this.processedQueue.findIndex(
+                (block) => block.id === state.current,
+            );
+        },
+
+        currentBlock(): PublicFormBlockModel | null {
+            if (!this.processedQueue || !this.processedQueue.length) {
+                return null;
+            }
+
+            if (this.currentBlockIndex === -1) {
+                return null;
+            }
+
+            try {
+                return this.processedQueue[this.currentBlockIndex];
+            } catch (e) {
+                console.warn("Current block not found in processed queue", e);
+                return null;
+            }
         },
 
         currentPayload(
             state,
         ): FormBlockInteractionPayload | FormBlockInteractionPayload[] | null {
-            if (!this.currentBlock) return null;
+            if (!state.current) return null;
 
-            if (state.payload[this.currentBlock.id]) {
-                return state.payload[this.currentBlock.id];
+            if (state.payload[state.current]) {
+                return state.payload[state.current];
             }
 
             return null;
@@ -137,17 +164,8 @@ export const useConversation = defineStore("form", {
             return ref(
                 !state.isSubmitted &&
                     state.payload &&
-                    Object.keys(state.payload).length > 0 &&
-                    state.current > 0,
+                    Object.keys(state.payload).length > 0,
             );
-        },
-
-        currentBlockIdentifier(): string | null {
-            if (!this.currentBlock) {
-                return null;
-            }
-
-            return this.currentBlock.title || this.currentBlock.id;
         },
 
         callToActionUrl(state): string | null {
@@ -251,21 +269,16 @@ export const useConversation = defineStore("form", {
                 }
             }
 
-            const storyboardResponse = await callGetFormStoryboard(id);
-            const formSessionResponse = await callCreateFormSession(id, params);
+            const [formSessionResponse, storyboardResponse] = await Promise.all(
+                [callCreateFormSession(id, params), callGetFormStoryboard(id)],
+            );
 
             this.session = formSessionResponse.data;
             this.storyboard = storyboardResponse.data.blocks;
 
-            this.queue = this.storyboard.filter((block) => {
-                return block.parent_block === null;
-            });
+            this.queue = createFlatQueue(this.storyboard);
 
-            // if the first block is a group, we need to evaluate it
-            if (this.currentBlock?.type === "group") {
-                this.evaluateGroupBlock(this.currentBlock);
-                this.next();
-            }
+            this.current = this.processedQueue[0].id ?? null;
         },
 
         enableInputMode() {
@@ -280,9 +293,9 @@ export const useConversation = defineStore("form", {
             action: PublicFormBlockInteractionModel,
             value: string | boolean | number | File[] | null,
         ) {
-            if (!this.currentBlock) return;
+            if (!this.current) return;
 
-            this.payload[this.currentBlock.id] = {
+            this.payload[this.current] = {
                 payload: value,
                 actionId: action.id,
             };
@@ -297,16 +310,16 @@ export const useConversation = defineStore("form", {
                 | null,
             keepChecked: boolean | null = null,
         ) {
-            if (!this.currentBlock) return;
+            if (!this.current) return;
 
             const givenPayload = {
                 payload: value,
                 actionId: action.id,
             };
-            const currentPayload = this.payload[this.currentBlock.id];
+            const currentPayload = this.payload[this.current];
 
             if (!Array.isArray(currentPayload)) {
-                this.payload[this.currentBlock.id] = [givenPayload];
+                this.payload[this.current] = [givenPayload];
             } else {
                 const foundIndex = currentPayload.findIndex(
                     (p) => p.actionId === action.id,
@@ -324,17 +337,37 @@ export const useConversation = defineStore("form", {
             }
         },
 
+        findBlockIndex(blockId: string): number {
+            return this.processedQueue.findIndex(
+                (block) => block.id === blockId,
+            );
+        },
+
+        goToIndex(index: number) {
+            if (index >= 0 && index < this.processedQueue.length) {
+                this.current = this.processedQueue[index].id;
+            } else {
+                console.warn("Index out of bounds", index);
+            }
+        },
+
+        executeGotoAction(targetBlockId: string) {
+            const targetIndex = this.findBlockIndex(targetBlockId);
+            if (targetIndex !== -1) {
+                this.goToIndex(targetIndex);
+            } else {
+                console.warn(
+                    `Target block ${targetBlockId} not found in processed queue`,
+                );
+            }
+        },
+
         back() {
             if (this.isFirstBlock) {
                 return;
             }
 
-            this.current -= 1;
-
-            // if we are on a group block, we need to go back again
-            if (this.currentBlock?.type === "group") {
-                this.back();
-            }
+            this.goToIndex(this.currentBlockIndex - 1);
         },
 
         /**
@@ -342,6 +375,15 @@ export const useConversation = defineStore("form", {
          * @returns {Promise<boolean>}
          */
         async next(): Promise<boolean> {
+            const gotoAction = this.currentBlock
+                ? evaluateGotoLogic(this.currentBlock, this.payload)
+                : null;
+
+            if (gotoAction && gotoAction.target) {
+                this.executeGotoAction(gotoAction.target);
+                return Promise.resolve(false);
+            }
+
             if (this.isLastBlock) {
                 this.uploads = {};
                 this.isProcessing = true;
@@ -400,15 +442,7 @@ export const useConversation = defineStore("form", {
                     return Promise.reject(new Error("Form or session not set"));
                 }
             } else {
-                this.current += 1;
-
-                // need to check if the next block is a group block
-                if (this.currentBlock?.type === "group") {
-                    this.evaluateGroupBlock(this.currentBlock);
-
-                    // we call next, since the group block has no other action
-                    return this.next();
-                }
+                this.goToIndex(this.currentBlockIndex + 1);
 
                 return Promise.resolve(false);
             }
@@ -423,24 +457,6 @@ export const useConversation = defineStore("form", {
                     };
                 });
             });
-        },
-
-        evaluateGroupBlock(currentBlock: PublicFormBlockModel) {
-            // we first should remove all blocks related to that group
-            this.queue =
-                this.queue?.filter((block) => {
-                    return block.parent_block !== currentBlock?.id;
-                }) ?? [];
-
-            // now we find all children from the storyboard
-            const children = this.storyboard?.filter((block) => {
-                return block.parent_block === currentBlock?.id;
-            });
-
-            // we add the children to the queue
-            if (children && children?.length > 0) {
-                this.queue?.splice(this.current + 1, 0, ...children);
-            }
         },
     },
 });

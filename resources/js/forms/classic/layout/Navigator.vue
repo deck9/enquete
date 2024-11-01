@@ -55,13 +55,12 @@ const store = useConversation();
 
 const { t } = useI18n();
 
-const props = defineProps<{
+defineProps<{
   hideNavigation?: boolean;
-  block?: PublicFormBlockModel | null;
 }>();
 
-const { actionValidator } = props.block
-  ? useActions(props.block)
+const { actionValidator } = store.currentBlock
+  ? useActions(store.currentBlock)
   : {
       actionValidator: () => {
         return { valid: true };
@@ -75,14 +74,18 @@ const validator = computed(() => {
 });
 
 const totalPages = computed(() => {
-  return store.queue?.length ?? 0;
+  return store.processedQueue?.length ?? 0;
 });
 
 const currentPage = computed(() => {
-  return store.current + 1;
+  return store.currentBlockIndex + 1;
 });
 
 const progress = computed(() => {
-  return Math.round((store.current / totalPages.value) * 100);
+  if (store.currentBlockIndex <= 0) {
+    return 0;
+  }
+
+  return Math.round(((store.currentBlockIndex + 1) / totalPages.value) * 100);
 });
 </script>

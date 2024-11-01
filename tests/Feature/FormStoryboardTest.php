@@ -1,8 +1,9 @@
 <?php
 
-use App\Enums\FormBlockType;
 use App\Models\Form;
 use App\Models\FormBlock;
+use App\Enums\FormBlockType;
+use App\Models\FormBlockLogic;
 use App\Models\FormBlockInteraction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -85,7 +86,6 @@ test('a disabled group should not return its children', function () {
 
     expect($response->json('count'))->toBe(0);
 });
-
 
 test('interactions in a storyboard are sorted by sequence', function () {
     $form = Form::factory()->create();
@@ -188,4 +188,16 @@ test('can get a block with randomized responses and a custom option that is not 
     // Check that there's at least one variation in the order of interactions
     $distinctOrders = collect($results)->unique();
     $this->assertTrue($distinctOrders->count() > 1, 'The interactions are not randomized');
+});
+
+test('a block contains logic definitions if they exist', function () {
+    $blockA = FormBlock::factory()->create();
+    $logic = FormBlockLogic::factory()->for($blockA)->create();
+
+    $blockB = FormBlock::factory()->for($blockA->form)->create();
+
+    $response = $this->json('get', route('api.public.forms.storyboard', $blockA->form->uuid));
+
+    $this->assertCount(1, $response->json('blocks.0.logics'));
+    $this->assertCount(0, $response->json('blocks.1.logics'));
 });

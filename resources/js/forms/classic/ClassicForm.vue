@@ -42,7 +42,6 @@
         <Navigator
           v-bind="{
             hideNavigation: flags.hideNavigation,
-            block: store.currentBlock,
             key: store.currentBlock?.id,
           }"
           :class="{

@@ -1,18 +1,19 @@
 <?php
 
-use App\Enums\FormBlockType;
-use App\Events\FormBlocksUpdated;
 use App\Models\Form;
-use App\Models\FormBlock;
 use App\Models\User;
-use Database\Seeders\SimpleFormSeeder;
 use Hashids\Hashids;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\FormBlock;
+use App\Enums\FormBlockType;
+use App\Models\FormBlockLogic;
+use App\Events\FormBlocksUpdated;
 use Illuminate\Support\Facades\Event;
+use Database\Seeders\SimpleFormSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('can_create_new_blocks', function () {
+test('can create new blocks', function () {
     $form = Form::factory()->create();
 
     $response = $this->actingAs($form->user)
@@ -27,7 +28,7 @@ test('can_create_new_blocks', function () {
     $this->assertEquals($block->type, FormBlockType::none);
 });
 
-test('can_create_a_new_block_of_type_group', function () {
+test('can create a new block of type group', function () {
     $form = Form::factory()->create();
 
     $response = $this->actingAs($form->user)
@@ -44,7 +45,7 @@ test('can_create_a_new_block_of_type_group', function () {
     $this->assertEquals($block->type, FormBlockType::group);
 });
 
-test('can_only_create_blocks_for_forms_that_a_user_owns', function () {
+test('can only create blocks for forms that a user owns', function () {
     /** @var User $otherUser */
     $otherUser = User::factory()->withTeam()->create([]);
     $form = Form::factory()->create();
@@ -55,7 +56,7 @@ test('can_only_create_blocks_for_forms_that_a_user_owns', function () {
 
 });
 
-test('can_get_blocks_related_to_a_form', function () {
+test('can get blocks related to a form', function () {
     $form = Form::factory()->create();
 
     FormBlock::factory()->count(5)->create([
@@ -69,7 +70,21 @@ test('can_get_blocks_related_to_a_form', function () {
     $this->assertCount(5, $response->json());
 });
 
-test('can_get_blocks_with_results_loaded', function () {
+test('can get a block with logic', function () {
+    $form = Form::factory()->create();
+    $block = FormBlock::factory()->for($form)->create();
+    $logic = FormBlockLogic::factory()->create([
+        'form_block_id' => $block->id,
+    ]);
+
+    $response = $this->actingAs($form->user)
+        ->json('get', route('api.blocks.index', $form->uuid));
+
+    $response->assertStatus(200);
+    $this->assertCount(1, $response->json('0.logics'));
+});
+
+test('can get blocks with results loaded', function () {
     $this->seed(SimpleFormSeeder::class);
     $form = Form::first();
 
@@ -85,7 +100,7 @@ test('can_get_blocks_with_results_loaded', function () {
     $this->assertNotNull($response->json('2.interactions.0.responses_count'));
 });
 
-test('can_update_existing_blocks', function () {
+test('can update existing blocks', function () {
     $block = FormBlock::factory()->create([
         'message' => 'Hey there',
         'type' => FormBlockType::none,
@@ -101,7 +116,7 @@ test('can_update_existing_blocks', function () {
     $this->assertEquals(FormBlockType::radio->value, $response->json('type'));
 });
 
-test('can_update_a_block_with_a_empty_message', function () {
+test('can update a block with a empty message', function () {
     $block = FormBlock::factory()->create([
         'message' => 'Test Message',
         'type' => FormBlockType::none,
@@ -117,7 +132,7 @@ test('can_update_a_block_with_a_empty_message', function () {
     $this->assertEquals(FormBlockType::radio->value, $response->json('type'));
 });
 
-test('cannot_create_or_update_blocks_of_not_owned_form', function () {
+test('cannot create or update blocks of not owned form', function () {
     /** @var User $otherUser */
     $otherUser = User::factory()->withTeam()->create();
 
@@ -141,7 +156,7 @@ test('cannot_create_or_update_blocks_of_not_owned_form', function () {
     $this->assertEquals(FormBlockType::none, $block->fresh()->type);
 });
 
-test('when_blocks_are_updated_an_event_is_fired', function () {
+test('when blocks are updated an event is fired', function () {
     Event::fake();
 
     $block = FormBlock::factory()->create([
@@ -160,7 +175,7 @@ test('when_blocks_are_updated_an_event_is_fired', function () {
     });
 });
 
-test('can_delete_a_block', function () {
+test('can delete a block', function () {
     $block = FormBlock::factory()->create();
 
     $this->actingAs($block->form->user)
@@ -170,7 +185,7 @@ test('can_delete_a_block', function () {
     $this->assertNull($block->fresh());
 });
 
-test('cannot_delete_blocks_of_other_users', function () {
+test('cannot delete blocks of other users', function () {
     /** @var User $otherUser */
     $otherUser = User::factory()->withTeam()->create();
     $block = FormBlock::factory()->create();
@@ -182,7 +197,7 @@ test('cannot_delete_blocks_of_other_users', function () {
     $this->assertNotNull($block->fresh());
 });
 
-test('can_set_a_title_for_the_results_view', function () {
+test('can set a title for the results view', function () {
     $block = FormBlock::factory()->create();
 
     $this->actingAs($block->form->user)
@@ -193,7 +208,7 @@ test('can_set_a_title_for_the_results_view', function () {
     $this->assertEquals('This is a block title', $block->fresh()->title);
 });
 
-test('can_remove_a_title_for_the_results_view', function () {
+test('can remove a title for the results view', function () {
     $block = FormBlock::factory()->create([
         'title' => 'Title is set',
     ]);
@@ -204,7 +219,7 @@ test('can_remove_a_title_for_the_results_view', function () {
     $this->assertNull($block->fresh()->title);
 });
 
-test('can_make_a_block_required_for_form_user', function () {
+test('can make a block required for form user', function () {
     $block = FormBlock::factory()->create();
 
     $this->actingAs($block->form->user)
@@ -218,7 +233,7 @@ test('can_make_a_block_required_for_form_user', function () {
     $this->assertFalse($block->fresh()->is_required);
 });
 
-test('can_save_information_in_an_options_field', function () {
+test('can save information in an options field', function () {
     $block = FormBlock::factory()->create();
 
     $this->actingAs($block->form->user)

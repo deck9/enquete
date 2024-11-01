@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Enums\FormBlockInteractionType;
-use App\Enums\FormBlockType;
-use App\Scopes\Sequence;
 use Hashids\Hashids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\Sequence;
 use Webpatser\Uuid\Uuid;
+use App\Enums\FormBlockType;
+use App\Models\FormBlockLogic;
+use App\Enums\FormBlockInteractionType;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FormBlock extends BaseModel
 {
@@ -26,7 +27,7 @@ class FormBlock extends BaseModel
 
     protected $guarded = [];
 
-    protected $with = ['formBlockInteractions'];
+    protected $with = ['formBlockInteractions', 'formBlockLogics'];
 
     protected $casts = [
         'is_required' => 'boolean',
@@ -38,10 +39,12 @@ class FormBlock extends BaseModel
 
     protected $appends = [
         'interactions',
+        'logics',
     ];
 
     protected $hidden = [
         'formBlockInteractions',
+        'formBlockLogics',
     ];
 
     protected static function boot()
@@ -93,6 +96,11 @@ class FormBlock extends BaseModel
         return $this->hasMany(FormBlockInteraction::class, 'form_block_id');
     }
 
+    public function formBlockLogics()
+    {
+        return $this->hasMany(FormBlockLogic::class, 'form_block_id');
+    }
+
     public function activeInteractions()
     {
         return $this->hasMany(FormBlockInteraction::class, 'form_block_id')
@@ -104,6 +112,11 @@ class FormBlock extends BaseModel
     public function getInteractionsAttribute()
     {
         return $this->formBlockInteractions;
+    }
+
+    public function getLogicsAttribute()
+    {
+        return $this->formBlockLogics;
     }
 
     public function getSessionCountAttribute()

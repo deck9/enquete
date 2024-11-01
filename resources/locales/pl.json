@@ -1,42 +1,43 @@
 {
-    "admin": {
-        "blocks": "brak bloków | 1 blok | {n} bloków"
-    },
-    "required": "wymagane",
-    "hints": {
-        "edit": "Naciśnij {0} aby edytować",
-        "confirm": "{0} aby potwierdzić"
-    },
-    "validation": {
-        "consent_required": "Aby kontynuować, musisz zaakceptować warunki.",
-        "field_required": "Tol pole jest wymagane.",
-        "valid_email": "Proszę wprowadzić prawidłowy adres e-mail.",
-        "valid_link": "Proszę wprowadzić prawidłowy link.",
-        "valid_number": "Proszę wprowadzić prawidłową liczbę.",
-        "valid_phone": "Proszę wprowadzić prawidłowy numer telefonu.",
-        "option_required": "Proszę wybrać opcję.",
-        "error": "Coś poszło nie tak podczas sprawdzania poprawności danych wejściowych",
-        "max_characters": "Przekroczyłeś maksymalną dozwoloną liczbę znaków.",
-        "no_file_interaction": "Nie ma poprawnej konfiguracji do akceptowania plików",
-        "too_many_files": "Przesłałeś zbyt wiele plików. Możesz przesłać maksymalnie {maxFiles} plików.",
-        "file_size": "Plik '{fileName}' przekracza maksymalny rozmiar {maxFileSize} MB.",
-        "rating_required": "Proszę wybrać ocenę."
-    },
-    "accept_submit": "Zaakceptuj i wyślij",
-    "accept": "Akceptuj",
-    "close": "Zamknij",
-    "type": "Wprowadź swoją odpowiedź",
-    "submit": "Wyślij",
-    "privacy_policy": "Polityka Prywatności",
-    "other": "Inne",
-    "next": "Następny",
-    "legal_notice": "Informacje Prawne",
-    "page_previous": "Idź do poprzedniej Strony",
-    "page_next": "Idź do następnej Strony",
-    "form_submitted": "Formularz przesłany",
-    "find_us": "Znajdziesz nas tutaj",
-    "enter": "Enter",
-    "continue": "Kontynuuj",
-    "files_choose": "Wybierz pliki",
-    "files_drop": "lub upuść tutaj"
+  "admin": {
+    "blocks": "brak bloków | 1 blok | {n} bloków",
+    "logicTitle": "brak zasad | 1 reguła bloku | {n} reguły blokowania"
+  },
+  "required": "wymagane",
+  "hints": {
+    "edit": "Naciśnij {0} aby edytować",
+    "confirm": "{0} aby potwierdzić"
+  },
+  "validation": {
+    "consent_required": "Aby kontynuować, musisz zaakceptować warunki.",
+    "field_required": "Tol pole jest wymagane.",
+    "valid_email": "Proszę wprowadzić prawidłowy adres e-mail.",
+    "valid_link": "Proszę wprowadzić prawidłowy link.",
+    "valid_number": "Proszę wprowadzić prawidłową liczbę.",
+    "valid_phone": "Proszę wprowadzić prawidłowy numer telefonu.",
+    "option_required": "Proszę wybrać opcję.",
+    "error": "Coś poszło nie tak podczas sprawdzania poprawności danych wejściowych",
+    "max_characters": "Przekroczyłeś maksymalną dozwoloną liczbę znaków.",
+    "no_file_interaction": "Nie ma poprawnej konfiguracji do akceptowania plików",
+    "too_many_files": "Przesłałeś zbyt wiele plików. Możesz przesłać maksymalnie {maxFiles} plików.",
+    "file_size": "Plik '{fileName}' przekracza maksymalny rozmiar {maxFileSize} MB.",
+    "rating_required": "Proszę wybrać ocenę."
+  },
+  "accept_submit": "Zaakceptuj i wyślij",
+  "accept": "Akceptuj",
+  "close": "Zamknij",
+  "type": "Wprowadź swoją odpowiedź",
+  "submit": "Wyślij",
+  "privacy_policy": "Polityka Prywatności",
+  "other": "Inne",
+  "next": "Następny",
+  "legal_notice": "Informacje Prawne",
+  "page_previous": "Idź do poprzedniej Strony",
+  "page_next": "Idź do następnej Strony",
+  "form_submitted": "Formularz przesłany",
+  "find_us": "Znajdziesz nas tutaj",
+  "enter": "Enter",
+  "continue": "Kontynuuj",
+  "files_choose": "Wybierz pliki",
+  "files_drop": "lub upuść tutaj"
 }

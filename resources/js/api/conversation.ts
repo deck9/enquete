@@ -3,6 +3,8 @@ import { AxiosProgressEvent, AxiosResponse } from "axios";
 import handler from "./handler";
 import { useRoutes } from "@/utils/useRoutes";
 
+await useRoutes();
+
 export function callGetForm(
     uuid: string,
 ): Promise<AxiosResponse<PublicFormModel>> {
